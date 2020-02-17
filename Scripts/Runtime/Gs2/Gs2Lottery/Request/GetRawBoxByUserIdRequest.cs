@@ -25,7 +25,7 @@ using UnityEngine.Scripting;
 namespace Gs2.Gs2Lottery.Request
 {
 	[Preserve]
-	public class ResetBoxRequest : Gs2Request<ResetBoxRequest>
+	public class GetRawBoxByUserIdRequest : Gs2Request<GetRawBoxByUserIdRequest>
 	{
 
         /** ネームスペース名 */
@@ -37,7 +37,7 @@ namespace Gs2.Gs2Lottery.Request
          * @param namespaceName ネームスペース名
          * @return this
          */
-        public ResetBoxRequest WithNamespaceName(string namespaceName) {
+        public GetRawBoxByUserIdRequest WithNamespaceName(string namespaceName) {
             this.namespaceName = namespaceName;
             return this;
         }
@@ -52,8 +52,23 @@ namespace Gs2.Gs2Lottery.Request
          * @param prizeTableName 排出確率テーブル名
          * @return this
          */
-        public ResetBoxRequest WithPrizeTableName(string prizeTableName) {
+        public GetRawBoxByUserIdRequest WithPrizeTableName(string prizeTableName) {
             this.prizeTableName = prizeTableName;
+            return this;
+        }
+
+
+        /** ユーザーID */
+        public string userId { set; get; }
+
+        /**
+         * ユーザーIDを設定
+         *
+         * @param userId ユーザーID
+         * @return this
+         */
+        public GetRawBoxByUserIdRequest WithUserId(string userId) {
+            this.userId = userId;
             return this;
         }
 
@@ -67,32 +82,19 @@ namespace Gs2.Gs2Lottery.Request
          * @param duplicationAvoider 重複実行回避機能に使用するID
          * @return this
          */
-        public ResetBoxRequest WithDuplicationAvoider(string duplicationAvoider) {
+        public GetRawBoxByUserIdRequest WithDuplicationAvoider(string duplicationAvoider) {
             this.duplicationAvoider = duplicationAvoider;
             return this;
         }
 
 
-        /** アクセストークン */
-        public string accessToken { set; get; }
-
-        /**
-         * アクセストークンを設定
-         *
-         * @param accessToken アクセストークン
-         * @return this
-         */
-        public ResetBoxRequest WithAccessToken(string accessToken) {
-            this.accessToken = accessToken;
-            return this;
-        }
-
     	[Preserve]
-        public static ResetBoxRequest FromDict(JsonData data)
+        public static GetRawBoxByUserIdRequest FromDict(JsonData data)
         {
-            return new ResetBoxRequest {
+            return new GetRawBoxByUserIdRequest {
                 namespaceName = data.Keys.Contains("namespaceName") && data["namespaceName"] != null ? data["namespaceName"].ToString(): null,
                 prizeTableName = data.Keys.Contains("prizeTableName") && data["prizeTableName"] != null ? data["prizeTableName"].ToString(): null,
+                userId = data.Keys.Contains("userId") && data["userId"] != null ? data["userId"].ToString(): null,
                 duplicationAvoider = data.Keys.Contains("duplicationAvoider") && data["duplicationAvoider"] != null ? data["duplicationAvoider"].ToString(): null,
             };
         }
